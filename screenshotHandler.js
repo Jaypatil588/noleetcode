@@ -1,49 +1,81 @@
-const { desktopCapturer } = require('electron');
-const fs = require('fs');
-const path = require('path');
-const { screen } = require('electron'); // to get the screen resolution
+const { desktopCapturer } = require("electron");
+const fs = require("fs");
+const path = require("path");
+const { processScreenshot } = require("./fetchResponse"); 
+const { screen } = require("electron");
+
+
+function parsePlainTextResponse(responseText) {
+  const regex = /TITLE:\s*([\s\S]*?)\n\s*THOUGHTS:\s*([\s\S]*?)\n\s*CODE:\s*([\s\S]*?)\n\s*COMPLEXITY:\s*([\s\S]*)/;
+  const matches = responseText.match(regex);
+  
+  if (!matches) {
+    throw new Error("Response format does not match the expected pattern");
+  }
+  
+  const [ , title, thoughts, code, complexity ] = matches;
+  
+  return {
+    title: title.trim(),
+    thoughts: thoughts.trim(),
+    code: code.trim(),
+    complexity: complexity.trim()
+  };
+}
+
 
 const screenshotHandler = async (win) => {
-  // Hide the window
-  win.hide();
-
-  // Wait for 500ms
+  await win.webContents.executeJavaScript(`
+    document.getElementById("loading").textContent = "..loading";
+  `);
+  // Wait for 100ms
   setTimeout(async () => {
-    try {
+    try {  
       const screenshotBuffer = await captureScreenshot();
-      const filePath = path.join('C:/screenshots', 'screenshot.png');
-      
-      // Save the screenshot
+      const filePath = path.join("C:/screenshots", "screenshot.png");
+
       fs.writeFileSync(filePath, screenshotBuffer);
       console.log(`Screenshot saved to ${filePath}`);
+      let current_response = await handleScreenshotEvent(filePath);      
+      const parsed = parsePlainTextResponse(current_response);
+
+        await win.webContents.executeJavaScript(`
+          document.getElementById("title").textContent = ${JSON.stringify(parsed.title)};
+          document.getElementById("thoughts").textContent = ${JSON.stringify(parsed.thoughts)};
+          document.getElementById("code").textContent = ${JSON.stringify(parsed.code)};
+          document.getElementById("complexity").textContent = ${JSON.stringify(parsed.complexity)};
+        `);
+      
     } catch (error) {
-      console.error('Error capturing screenshot:', error);
+      console.error("Error setting parsed values", error);
     }
 
-    // Show the window again
-    win.show();
-  }, 500);
+    await win.webContents.executeJavaScript(`
+      document.getElementById("loading").textContent = "";
+    `);
+  }, 100);
 };
 
-const captureScreenshot = async () => {
-  // Get screen resolution (this will return the primary display resolution)
-  const { width, height } = screen.getPrimaryDisplay().size;
+async function handleScreenshotEvent(screenshotPath) {
+  return await processScreenshot(screenshotPath);
+}
 
-  // Request full screen capture with the actual screen resolution
+const captureScreenshot = async () => {
+  const { width, height } = screen.getPrimaryDisplay().size;
   const sources = await desktopCapturer.getSources({
-    types: ['screen'],
-    thumbnailSize: { width, height } // Set to the native screen resolution
+    types: ["screen"],
+    thumbnailSize: { width, height }, 
   });
 
   if (sources.length === 0) {
-    throw new Error('No screen sources found');
+    throw new Error("No screen sources found");
   }
 
   const screenSource = sources[0];
 
   // Capture the entire screen at native resolution
   const screenshot = screenSource.thumbnail.toPNG();
-  
+
   return screenshot;
 };
 
