@@ -3,8 +3,8 @@ const screenshotHandler = require("./screenshotHandler");
 
 const state = {
   mainWindow: null,
-  windowPosition: { x: 900, y: 50 },
-  windowSize: { width: 600, height: 1000 },
+  windowPosition: { x: 100, y: 30 },
+  windowSize: { width: 800, height: 1200 },
   isWindowVisible: true,
 };
 
@@ -22,7 +22,7 @@ const windowSettings = {
   hasShadow: false,
   fullscreenable: false,
   skipTaskbar: true,
-  focusable: true,
+  focusable: false,
   enableLargerThanScreen: true,
   movable: true,
   titleBarStyle: "hidden",
@@ -67,7 +67,7 @@ function createWindow() {
   //state.mainWindow.webContents.openDevTools();
 
 
-  state.mainWindow.setOpacity(0.7);
+  state.mainWindow.setOpacity(0.8);
 }
 
 // Window state management: toggling visibility with opacity and mouse events
@@ -81,6 +81,8 @@ function toggleMainWindow() {
 
     // Allow mouse events to pass through when hiding the window
     state.mainWindow.setIgnoreMouseEvents(true, { forward: true });
+    //state.mainWindow.setIgnoreMouseEvents(false, { forward: false });
+
     state.mainWindow.setAlwaysOnTop(true, "screen-saver", 1);
     state.mainWindow.setVisibleOnAllWorkspaces(true, {
       visibleOnFullScreen: true,
@@ -91,6 +93,7 @@ function toggleMainWindow() {
   } else {
     // Keep mouse events passing through, no need to change that
     state.mainWindow.setIgnoreMouseEvents(true, { forward: true });
+    //state.mainWindow.setIgnoreMouseEvents(false, { forward: false });
 
     state.mainWindow.setOpacity(0.7); // Set opacity to 70% for visibility
     state.mainWindow.show(); // Physically show the window again
