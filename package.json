@@ -4,13 +4,15 @@
     "description": "A minimal Electron project displaying hello world",
     "main": "main.js",
     "scripts": {
-        "dev": "electron ."
+        "dev": "electron .",
+        "build": "electron-builder"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "electron": "^25.0.0"
+        "electron": "^25.9.8",
+        "electron-builder": "^25.1.8"
     },
     "dependencies": {
         "@google/generative-ai": "^0.24.0",
