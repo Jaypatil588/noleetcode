@@ -4,7 +4,7 @@ const screenshotHandler = require("./screenshotHandler");
 const state = {
   mainWindow: null,
   windowPosition: { x: 100, y: 30 },
-  windowSize: { width: 800, height: 1200 },
+  windowSize: { width: 1000, height: 1200 },
   isWindowVisible: true,
 };
 
