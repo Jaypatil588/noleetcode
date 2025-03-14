@@ -1,120 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Electron App</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-<head>
-    
-  <meta charset="UTF-8" />
-  <title>Electron App</title>
-  <style>
-    /* Global Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- highlight.js -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="assets/github-dark.css">
+    <script src="assets/highlight.js"></script>
 
-    /* Full-page background */
-    body {
-      background: transparent;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      overflow: hidden;
-      padding-top: 20px;
-    }
+    <style>
+      /* Global Reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-    h1, h2, h3 {
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: #eee;
-    }
+      /* Full-page background */
+      body {
+        background: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        justify-content: flex-start;
+        overflow: hidden;
+        width: 100%;
+        padding: 1em;
+      }
 
-    ul {
-      list-style-type: "• ";
-      padding-left: 20px;
-    }
+      h1,
+      h2,
+      h3 {
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: white;
+      }
 
-    li {
-      margin-bottom: 4px;
-    }
+      ol {
+        padding-left: 20px;
+      }
 
-    p {
-      margin-bottom: 12px;
-    }
+      li {
+        margin-bottom: 0px;
+      }
 
-    .container {
-      padding: 16px;
-      max-width: 800px;
-    }
+      .headings{
+        font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.2;
+        color: white;
+        font-weight: bold;
+      }
 
-    /* Header Card */
-    .header-card {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 600px;
-      height: 60px;
-      background-color: #424242;
-      color: white;
-      font-size: 12px;
-      font-family: Arial, sans-serif;
-      border-radius: 12px;
-      padding: 0 15px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
-    }
+      .rowStyle{
+        background-color: #424242;
+      }
 
-    .header-card div {
-      flex: 1;
-      text-align: center;
-    }
+      .head {
+            background-color: #262626; 
+            border: 1px solid #ccc;     
+            text-align: center;
+            color: white;
+            font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            font-size: 12px;
+            line-height: 1;
+            font-weight: 400;
+            border-radius: 12px;
+            padding: 0.5em;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+            margin: 1em;
+        }
+        pre, code {
+          margin: 0 !important;
+          padding: 0 !important;
+          line-height: 1.2;
+        }
 
-    /* Screenshot Card */
-    .screenshot-card {
-      font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-      font-size: 12px;
-      line-height: 1.6;
-      font-weight: 400;
-      color: #ddd;
-      display: flex;
-      width: 600px;
-      background-color: #424242;
-      border-radius: 12px;
-      padding: 15px;
-      margin-top: 30px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
-      text-align: center;
-      overflow: hidden;
-    }
-  </style>
-</head>
+      .screenshot-card {
+        font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+        font-size: 12px;
+        line-height: 1.2;
+        font-weight: 400;
+        color: white;
+        background-color: #262626;
+        border-radius: 12px;
+        padding: 1em;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+        text-align: center;
+        width: 100%;
+      }
 
-<body>
-  <!-- Main Container -->
-  <div class="container">
-    <!-- Header Card -->
-    <div class="header-card">
-      <div>Ctrl+B to show/hide</div>
-      <div>Ctrl+N to screenshot</div>
-      <div>Ctrl+M to start over</div>
-    </div>
+      .halfwidth{
+        max-width: 60%;
+        align-content: start;
+      }
+
+      .loading{
+        font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        font-weight: 400;
+        color: #ddd;
+        background-color: #424242;
+        text-align: center;
+        margin-bottom: 1em;
+      }
+
+      .sections{
+            text-align: left;
+            color: white;
+            font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            font-size: 12px;
+            line-height: 1.2;
+            font-weight: 400;
+            width: 100%;
+            margin:0 1em 0 1em
+      }
+
+      .hidden{
+          display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container halfwidth">
+      <div class="row rowStyle">
+          <div class="col head">Ctrl+B to show/hide</div>
+          <div class="col head">Ctrl+N to screenshot</div>
+          <div class="col head">Ctrl+M to start over</div>
+      </div>
+      <div id="loading-container" class="row rowStyle hidden">
+      <div class="loading col-12" style="text-align: center;">Generating...</div>
+      </div>
   </div>
 
-  <div class="container">
-    <!-- Screenshot Card -->
-    <div class="screenshot-card">
-    <h3 id="loading"></h3>
-    <br/>
-      <p id="title">title</p>
-      <br>
-      <p id="thoughts">thoughts</p>
-      <br>
-      <p id="code">code</p>
-      <br>
-      <p id="complexity">complexity</p>
-      <br>
-    </div>
-  </div>
-</body>
 
+
+    <!-- Main Container for Screenshot Card -->
+    <div id="screenshot-container" class="container mt-1 hidden">
+      <div class="row">
+        <div class="col-12">
+          <div class="screenshot-card">
+            <!-- Row 2: Title -->
+            <div class="row">
+              <div class="sections">
+                <div class="headings">Problem statement</div>
+                  <p id="title"></p>
+              </div>
+            </div>
+            <!-- Row 3: Thoughts -->
+            <div class="row">
+              <div class="sections">
+                <div class="headings">My thoughts</div>
+                <div id="thoughts">thoughts</div>
+              </div>
+            </div>
+            <!-- Row 4: Code -->
+            <div class="row">
+              <div class="sections" style="opacity: 0.9;">
+                <div class="headings" style="margin-top: 0 !important; margin-bottom: 0 !important; padding: 0 !important;">Solution</div>
+                <pre style="margin-top: 0 !important; margin-bottom: 0 !important; padding: 0 !important;">  
+                  <code id="code" class="language-python" style="font-size: 14px;"></code>
+                </pre>
+              </div>
+            </div>
+            <!-- Row 5: Complexity -->
+            <div class="row">
+              <div class="sections">
+                <div class="headings">Complexity</div>
+                <p id="complexity">complexity</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
