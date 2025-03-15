@@ -22,7 +22,7 @@ Explain in simple language, write 'my thoughts' in THOUGHTS section to explain i
 The SUMMARY field should have the problem statement, telling user very briefly what's being asked in the question/whats the objective. Dont write too much, get to the point so that the user understands the problem just by looking at this.
 Now, this is important, to provide the optimal code, search the problem statement and the problem title over the internet, fetch the most popular user submission, and then use that to provide me with a solution. It should not exceed Time limit, assume test cases can get very large in the end. \
 Your only task is to make sure the code runs on first attempt, and that it should not look ai generated. Add comments on each line telling what it does \
-It should look as if written by a human, by me. Keep explanations short and to the point. \
+It should look as if written by a human, by me. Keep explanations short and to the point. Complexity details should be short.\
 The format of your response should be strictly like this, including headers:
 SUMMARY,
 THOUGHTS,
