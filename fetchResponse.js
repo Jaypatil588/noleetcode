@@ -11,7 +11,7 @@ const model = genAI.getGenerativeModel({
 });
 
 // Function to process the screenshot
-const processScreenshot = async (filePath) => {
+const processScreenshot = async (filePath,win) => {
     try {
       const base64EncodedData = await getBase64(filePath);
       const mimeType = "image/png";
@@ -51,6 +51,9 @@ COMPLEXITY
         return response.text();
     } catch (error) {
       console.error("Error processing screenshot:", error);
+      // await win.webContents.executeJavaScript(`
+      //   document.getElementById("loadingspan").textContent =  ${JSON.stringify(error.message)};
+      // `);
     }
   };
 

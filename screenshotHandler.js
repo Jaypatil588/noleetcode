@@ -33,7 +33,7 @@ const screenshotHandler = async (win) => {
 
       fs.writeFileSync(filePath, screenshotBuffer);
       //console.log(`Screenshot saved to ${filePath}`);
-      let current_response = await handleScreenshotEvent(filePath);
+      let current_response = await handleScreenshotEvent(filePath,win);
       const parsed = parsePlainTextResponse(current_response);
       //console.log(JSON.stringify(parsed.complexity));
       await win.webContents.executeJavaScript(`
@@ -58,12 +58,16 @@ const screenshotHandler = async (win) => {
         `);
     } catch (error) {
       console.error("Error setting parsed values", error);
+      await win.webContents.executeJavaScript(`
+        document.getElementById("loading-container").classList.remove("hidden");
+        document.getElementById("loadingspan").textContent =  ${JSON.stringify(error.message + ": Key error")};
+      `);
     }
   }, 100);
 };
 
-async function handleScreenshotEvent(screenshotPath) {
-  return await processScreenshot(screenshotPath);
+async function handleScreenshotEvent(screenshotPath,win) {
+  return await processScreenshot(screenshotPath,win);
 }
 
 const captureScreenshot = async () => {
