@@ -2,3 +2,5 @@ node_modules/
 *.log
 *.env
 dist/
+assets/importCSV.js
+assets/lcdb.csv
