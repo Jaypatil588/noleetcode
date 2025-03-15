@@ -1,5 +1,5 @@
 const { app, BrowserWindow, globalShortcut } = require("electron");
-const screenshotHandler = require("./screenshotHandler");
+const screenshotHandler = require("./components/screenshotHandler");
 
 const state = {
   mainWindow: null,
