@@ -14,14 +14,14 @@ function parsePlainTextResponse(responseText) {
 
   const [, title, thoughts, code, complexity] = matches;
   return {
-    title: title.trim(),
+    title: title.replace(/[\*\-\:]\s+/g, "").trim(),
     thoughts: thoughts.replace(/[\*\-]\s+/g, "").trim(),
-    code: code.replace(/^```python\n/, "").replace(/\n```$/, "").trim(),
+    code: code.replace(/^:```python\n/, "").replace(/\n```$/, "").trim(),
     complexity: complexity.replace(/[\*\-]\s+/g, "").trim().trim()
   };
 }
 
-const screenshotHandler = async (win) => {
+const screenshotHandler = async (win,num) => {
   await win.webContents.executeJavaScript(`
     document.getElementById("screenshot-container").classList.add("hidden");
     document.getElementById("loading-container").classList.remove("hidden");
@@ -33,7 +33,8 @@ const screenshotHandler = async (win) => {
 
       fs.writeFileSync(filePath, screenshotBuffer);
       //console.log(`Screenshot saved to ${filePath}`);
-      let current_response = await handleScreenshotEvent(filePath,win);
+
+      let current_response = await handleScreenshotEvent(filePath,num,win);
       const parsed = parsePlainTextResponse(current_response);
       //console.log(JSON.stringify(parsed.complexity));
       await win.webContents.executeJavaScript(`
@@ -66,8 +67,8 @@ const screenshotHandler = async (win) => {
   }, 100);
 };
 
-async function handleScreenshotEvent(screenshotPath,win) {
-  return await processScreenshot(screenshotPath,win);
+async function handleScreenshotEvent(screenshotPath,num,win) {
+  return await processScreenshot(screenshotPath,num,win);
 }
 
 const captureScreenshot = async () => {

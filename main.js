@@ -56,7 +56,12 @@ function createWindow() {
   state.mainWindow.webContents.on("did-finish-load", () => {
     // Bind the ctrl+N shortcut
     globalShortcut.register("Ctrl+N", () => {
-      screenshotHandler(state.mainWindow); 
+      screenshotHandler(state.mainWindow,1); 
+    });
+
+        // Bind the ctrl+N shortcut
+    globalShortcut.register("Ctrl+M", () => {
+      screenshotHandler(state.mainWindow,2); 
     });
   });
 
