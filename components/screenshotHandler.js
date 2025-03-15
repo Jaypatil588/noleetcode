@@ -1,7 +1,7 @@
 const { desktopCapturer } = require("electron");
 const fs = require("fs");
 const path = require("path");
-const { processScreenshot } = require("../fetchResponse");
+const { processScreenshot } = require("./fetchResponse");
 const { screen } = require("electron");
 
 function parsePlainTextResponse(responseText) {
