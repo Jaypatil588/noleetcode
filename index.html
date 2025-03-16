@@ -1,70 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>LeetcodeKMKC</title>
-    <meta name="author" content="Jay">
 
-    <link rel="stylesheet" href="assets/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/github-dark.css">
-    <link rel="stylesheet" href="assets/index.css">
+<head>
+  <meta charset="UTF-8" />
+  <title>LeetcodeKMKC</title>
+  <meta name="author" content="Jay">
+  <link rel="stylesheet" href="assets/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/github-dark.css">
+  <link rel="stylesheet" href="assets/index.css">
+  <script src="assets/highlight.js"></script>
+  <script src="assets/jquery-3.6.0.min.js"></script>
+</head>
 
-    <script src="assets/highlight.js"></script>
-    <script src="assets/jquery-3.6.0.min.js"></script>
-
-  </head>
-  <body>
-    <div class="container halfwidth">
-      <div class="row rowStyle">
-          <div class="col head">Ctrl+B to show/hide</div>
-          <div class="col head">Ctrl+N to AI gen</div>
-          <div class="col head">Ctrl+M to LC gen</div>
-      </div>
-      <div id="loading-container" class="row rowStyle hidden">
+<body>
+  <div class="container halfwidth">
+    <div class="row rowStyle">
+      <div class="col head">Ctrl+B to show/hide</div>
+      <div class="col head">Ctrl+N to AI gen</div>
+      <div class="col head">Ctrl+M to LC gen</div>
+    </div>
+    <div id="loading-container" class="row rowStyle hidden">
       <div class="loading col-12 text-center" id="loadingspan">Generating...</div>
-      </div>
+    </div>
   </div>
 
-
-
-    <!-- Main Container for Screenshot Card -->
-    <div id="screenshot-container" class="container mt-1 hidden">
-      <div class="row">
-        <div class="col-12">
-          <div class="screenshot-card">
-            <!-- Row 2: Title -->
-            <div class="row">
-              <div class="sections">
-                <div class="headings">Problem statement</div>
-                  <p id="title"></p>
-              </div>
+  <!-- Main Container for Screenshot Card -->
+  <div id="screenshot-container" class="container mt-1 hidden">
+    <div class="row">
+      <div class="col-12">
+        <div class="screenshot-card">
+          <!-- Row 2: Title -->
+          <div class="row">
+            <div class="sections">
+              <div class="headings">Problem statement</div>
+              <p id="title"></p>
             </div>
-            <!-- Row 3: Thoughts -->
-            <div class="row">
-              <div class="sections">
-                <div class="headings">My thoughts</div>
-                <div id="thoughts">thoughts</div>
-              </div>
+          </div>
+          <!-- Row 3: Thoughts -->
+          <div class="row">
+            <div class="sections">
+              <div class="headings">My thoughts</div>
+              <div id="thoughts">thoughts</div>
             </div>
-            <!-- Row 4: Code -->
-            <div class="row">
-              <div class="sections" style="opacity: 0.9; line-height: 1;">
-                <div class="headings" style="margin-top: 0 !important; margin-bottom: 0 !important; padding: 0 !important;">Solution</div>
-                <pre style="margin-top: 0 !important; margin-bottom: 0 !important; padding: 0 !important;">  
-                  <code id="code" class="language-python" style="font-size: 14px;"></code>
+          </div>
+          <!-- Row 4: Code -->
+          <div class="row">
+            <div class="sections" style="opacity: 0.9; line-height: 1;">
+              <div class="headings">Solution</div>
+              <pre>
+                  <code id="code" class="language-python"></code>
                 </pre>
-              </div>
             </div>
-            <!-- Row 5: Complexity -->
-            <div class="row">
-              <div class="sections">
-                <div class="headings">Complexity</div>
-                <p id="complexity">complexity</p>
-              </div>
+          </div>
+          <!-- Row 5: Complexity -->
+          <div class="row mt-2">
+            <div class="sections">
+              <div class="headings">Complexity</div>
+              <p id="complexity">complexity</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
