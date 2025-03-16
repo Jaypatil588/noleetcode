@@ -14,10 +14,10 @@ function parsePlainTextResponse(responseText) {
 
   const [, title, thoughts, code, complexity] = matches;
   return {
-    title: title.replace(/[\*\-\:]\s+/g, "").trim(),
-    thoughts: thoughts.replace(/[\*\-]\s+/g, "").trim(),
-    code: code.replace(/^:```python\n/, "").replace(/\n```$/, "").trim(),
-    complexity: complexity.replace(/[\*\-]\s+/g, "").trim().trim()
+    title: title.replace(/^[:\n\s*]+/, "").trim(),
+    thoughts: thoughts.replace(/^[:\n\s*]+/, "").replace(/\*/g, "").trim(),
+    code : code.replace(/^[^a-zA-Z0-9]*```python\s*\n?/, "").replace(/\n*```\s*$/, "").trim(),
+    complexity: complexity.replace(/^[:\n\s*]+/, "").trim().trim()
   };
 }
 
@@ -36,7 +36,10 @@ const screenshotHandler = async (win,num) => {
 
       let current_response = await handleScreenshotEvent(filePath,num,win);
       const parsed = parsePlainTextResponse(current_response);
-      //console.log(JSON.stringify(parsed.complexity));
+      await win.webContents.executeJavaScript(`
+        document.getElementById("loadingspan").textContent = ("");
+      `);
+      console.log(JSON.stringify(parsed.thoughts));
       await win.webContents.executeJavaScript(`
         document.getElementById("title").textContent = ${JSON.stringify(parsed.title)};
 
