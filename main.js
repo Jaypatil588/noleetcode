@@ -4,7 +4,7 @@ const screenshotHandler = require("./components/screenshotHandler");
 const state = {
   mainWindow: null,
   windowPosition: { x: 100, y: 30 },
-  windowSize: { width: 1000, height: 1200 },
+  windowSize: { width: 700, height: 1000 },
   isWindowVisible: true,
 };
 
@@ -106,32 +106,45 @@ function toggleMainWindow() {
   }
 }
 
-const moveStep = 10;
-function moveWindowLeft() {
-  if (!state.mainWindow) return;
-  const [x, y] = state.mainWindow.getPosition();
-  state.mainWindow.setPosition(x - moveStep, y);
-}
-function moveWindowRight() {
-  if (!state.mainWindow) return;
-  const [x, y] = state.mainWindow.getPosition();
-  state.mainWindow.setPosition(x + moveStep, y);
-}
+const moveStep = 100;
+//deprecated: This is kinda pointless when i can just hide the window
+// function moveWindowLeft() {
+//   if (!state.mainWindow) return;
+//   const [x, y] = state.mainWindow.getPosition();
+//   state.mainWindow.setPosition(x - moveStep, y);
+// }
+// function moveWindowRight() {
+//   if (!state.mainWindow) return;
+//   const [x, y] = state.mainWindow.getPosition();
+//   state.mainWindow.setPosition(x + moveStep, y);
+// }
 function moveWindowUp() {
   if (!state.mainWindow) return;
-  const [x, y] = state.mainWindow.getPosition();
-  state.mainWindow.setPosition(x, y - moveStep);
+  state.mainWindow.webContents.executeJavaScript(`
+    (function() {
+      const preContainer = document.querySelector('pre');
+      if (preContainer) {
+        preContainer.scrollTop -= ${moveStep};
+      }
+    })();
+  `);
 }
 function moveWindowDown() {
   if (!state.mainWindow) return;
-  const [x, y] = state.mainWindow.getPosition();
-  state.mainWindow.setPosition(x, y + moveStep);
+  state.mainWindow.webContents.executeJavaScript(`
+    (function() {
+      const preContainer = document.querySelector('pre');
+      if (preContainer) {
+        preContainer.scrollTop += ${moveStep};
+      }
+    })();
+  `);
 }
 
 function registerShortcuts() {
   globalShortcut.register("CommandOrControl+B", toggleMainWindow);
-  globalShortcut.register("CommandOrControl+Left", moveWindowLeft);
-  globalShortcut.register("CommandOrControl+Right", moveWindowRight);
+  // globalShortcut.register("CommandOrControl+Left", moveWindowLeft);
+  // globalShortcut.register("CommandOrControl+Right", moveWindowRight);
   globalShortcut.register("CommandOrControl+Up", moveWindowUp);
   globalShortcut.register("CommandOrControl+Down", moveWindowDown);
 }
