@@ -150,12 +150,12 @@ const processScreenshot = async (filePath, num, win) => {
 
 async function getLeetcodeResponse(filePath,titleNumber,python_solutions,problemStatement) {
   const userMessage = `You are roleplaying as a software developer, focused on solving DSA and leetcode problems. \
-  You are already given the following solved code for this problem, DO NOT MODIFY THE CODE! this is very important. \
+  You are already given the following solved code for this problem, DO NOT MODIFY THE CODE! this is very important. However, in a case if the code is unnecessarily convoluted and can be reduced, simplify it but keep the logic intact \
   ${problemStatement}\n\
   ${python_solutions}\n\
 }
-  Explain with the help of the provided code and statement, write 'my thoughts' in THOUGHTS section, as I would explain the code to the interviewer step by step. Keep it concise. Use bullet points,  Add newline character after each point. Max 5 points and newline characters.\
-  The SUMMARY field should have the summary of the problem, telling user in short what's the objective. Start with what "DSA topic" this question belongs to. Dont write too much, get to the point so that the user understands the problem just by looking at this.
+  Explain with the help of the provided code and statement, write 'my thoughts' in THOUGHTS section, as I would explain the code to the interviewer step by step. Start with what "DSA topic" this question belongs to. Keep it short and to the point. Use bullet points,  Add newline character after each point.\
+  The SUMMARY field should have the summary of the problem, telling user in short what's the objective. Dont write too much, get to the point so that the user understands the problem just by looking at this.
   Write Complexity (time, space) in two bullet points. Short, to the point.\
   The format of your response should be strictly like this, including headers:
   SUMMARY,
@@ -190,10 +190,10 @@ async function getResponse(filePath) {
 
   const userMessage = `You are roleplaying as a software developer, focused on solving DSA and leetcode problems. \
 You need to solve the problem provided in this image with least amount of code possible, while maintaining code verbosity and explaining the segments separately as you go. \
-Explain in simple language, write 'my thoughts' in THOUGHTS section to explain it as me to the interviewer, like first ill do this, then that, and so on. First, write what DSA topic this question belongs to. Use bullet points,  Add newline character after each point. Max 5 points and newline characters.  \
+Explain in simple language, write 'my thoughts' in THOUGHTS section to explain it as me to the interviewer, like first ill do this, then that, and so on. First, write what DSA topic this question belongs to. Use bullet points,  Add newline character after each point. Keep this very short. Dont write a paragraph, explain in bullet points followed by '\n' \
 The SUMMARY field should have the problem statement, telling user very briefly in very short sentence, what's being asked in the question/whats the objective. Dont write too much, get to the point so that the user understands the problem just by looking at this.
 Now, this is important, to provide the optimal code, search the problem statement and the problem title over the internet, fetch the most popular user submission, and then use that to provide me with a solution. It should not exceed Time limit, assume test cases can get very large in the end. \
-Your only task is to make sure the code runs on first attempt, and that it should not look ai generated. Add comments on each line telling what it does \
+Your only task is to make sure the code runs on first attempt, and that it should not look ai generated. Add very short comments on each line telling what it does. \
 It should look as if written by a human, by me. Keep explanations short and to the point. Complexity details should be short.\
 The format of your response should be strictly like this, including headers:
 SUMMARY,
