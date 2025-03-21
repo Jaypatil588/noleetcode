@@ -12,13 +12,19 @@ Gemini model 1.5 which supports fine tuning does NOT support images.
 What if i did OCR text extraction using model 2 from image and then used 1.5 fine tuned to solve? To be done later i guess?~~
 
 Readme installation.
+
 Prereq:
+
 create a .env file in project folder 
+
 add GEMINI_API_KEY=ur key here
+
 create a folder in C: named screenshots
 
 Installation:
+
 npm install
+
 npm run dev
 
 Then just read the frontend 
