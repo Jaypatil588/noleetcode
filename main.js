@@ -37,21 +37,21 @@ function createWindow() {
   state.mainWindow = new BrowserWindow(windowSettings);
   state.mainWindow.setIgnoreMouseEvents(true, { forward: true });
 
-  // Screen Capture Protection measures
-  state.mainWindow.setContentProtection(true);
-  state.mainWindow.setVisibleOnAllWorkspaces(true, {
-    visibleOnFullScreen: true,
-  });
-  state.mainWindow.setAlwaysOnTop(true, "screen-saver", 1);
+  // // Screen Capture Protection measures
+  // state.mainWindow.setContentProtection(true);
+  // state.mainWindow.setVisibleOnAllWorkspaces(true, {
+  //   visibleOnFullScreen: true,
+  // });
+  // state.mainWindow.setAlwaysOnTop(true, "screen-saver", 1);
 
-  // macOS-specific protections
-  if (process.platform === "darwin") {
-    state.mainWindow.setHiddenInMissionControl(true);
-    state.mainWindow.setWindowButtonVisibility(false);
-    state.mainWindow.setBackgroundColor("#000000B3");
-    state.mainWindow.setSkipTaskbar(true);
-    state.mainWindow.setHasShadow(false);
-  }
+  // // macOS-specific protections
+  // if (process.platform === "darwin") {
+  //   state.mainWindow.setHiddenInMissionControl(true);
+  //   state.mainWindow.setWindowButtonVisibility(false);
+  //   state.mainWindow.setBackgroundColor("#000000B3");
+  //   state.mainWindow.setSkipTaskbar(true);
+  //   state.mainWindow.setHasShadow(false);
+  // }
 
   state.mainWindow.webContents.on("did-finish-load", () => {
     // Bind the ctrl+N shortcut
@@ -72,7 +72,7 @@ function createWindow() {
   //state.mainWindow.webContents.openDevTools();
 
 
-  state.mainWindow.setOpacity(0.8);
+  state.mainWindow.setOpacity(1);
 }
 
 // Window state management: toggling visibility with opacity and mouse events
@@ -100,7 +100,7 @@ function toggleMainWindow() {
     state.mainWindow.setIgnoreMouseEvents(true, { forward: true });
     //state.mainWindow.setIgnoreMouseEvents(false, { forward: false });
 
-    state.mainWindow.setOpacity(0.7); // Set opacity to 70% for visibility
+    state.mainWindow.setOpacity(1); // Set opacity to 70% for visibility
     state.mainWindow.show(); // Physically show the window again
     state.isWindowVisible = true; // Update visibility state
   }
